@@ -3,13 +3,23 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>E2 Live Music — Orquesta</title>
+<title>E2 Live Music — Orquesta en Vivo | Venezuela</title>
 <meta name="description" content="E2 Live Music - Orquesta en vivo en Venezuela. Animación musical profesional para bodas, fiestas y eventos corporativos con un repertorio variado."/>
+<link rel="icon" type="image/jpeg" href="assets/img/logo2.jpg"/>
+<!-- Open Graph -->
 <meta property="og:title" content="E2 Live Music — Orquesta en vivo"/>
 <meta property="og:description" content="Animación musical profesional para bodas, fiestas y eventos corporativos con un repertorio variado."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://e2livemusic.com"/>
-<meta property="og:image" content="https://raw.githubusercontent.com/Quorex-Studio/Landing-Page-E2-Live-Music/main/hero-preview.png"/>
+<meta property="og:image" content="https://raw.githubusercontent.com/Quorex-Studio/Landing-Page-E2-Live-Music/main/assets/img/logo3.jpg"/>
+<meta property="og:image:width" content="1080"/>
+<meta property="og:image:height" content="1080"/>
+<meta property="og:locale" content="es_VE"/>
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="E2 Live Music — Orquesta en vivo"/>
+<meta name="twitter:description" content="Animación musical profesional para bodas, fiestas y eventos corporativos con un repertorio variado."/>
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Quorex-Studio/Landing-Page-E2-Live-Music/main/assets/img/logo3.jpg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Cinzel:wght@400;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -36,8 +46,10 @@ display:flex;justify-content:space-between;align-items:center;
 padding:20px 48px;
 background:linear-gradient(to bottom, #08080f, transparent);
 backdrop-filter:blur(12px);}
-.nav-logo{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--text);text-decoration:none;}
-.nav-logo span{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo img{height:44px;width:44px;object-fit:cover;border-radius:50%;border:1px solid rgba(155,107,255,0.4);box-shadow:0 0 10px rgba(155,107,255,0.3);}
+.nav-logo-text{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--text);}
+.nav-logo-text span{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .nav-links{display:flex;gap:32px;align-items:center;}
 .nav-links a{font-family:'Cinzel',serif;color:var(--dim);text-decoration:none;font-size:0.8rem;font-weight:600;text-transform:uppercase;transition:color .3s;}
 .nav-links a:hover{color:var(--text);}
@@ -193,7 +205,10 @@ footer a:hover{color:var(--blue);}
 <body>
 
 <nav>
-  <a href="#" class="nav-logo"><span>E2</span> Live Music</a>
+  <a href="#" class="nav-logo">
+    <img src="assets/img/logo2.jpg" alt="Logo E2 Live Music"/>
+    <span class="nav-logo-text"><span>E2</span> Live Music</span>
+  </a>
   <div class="nav-links">
     <a href="#banda">La Orquesta</a>
     <a href="#shows">Shows</a>
@@ -643,16 +658,13 @@ footer a:hover{color:var(--blue);}
 document.addEventListener("DOMContentLoaded", function() {
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('in');
-        }, index * 100); // Staggering effect
+        entry.target.classList.add('in');
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-  
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(reveal => observer.observe(reveal));
 });
 </script>
