@@ -33,4 +33,4 @@
 This project was developed by **Quorex Studio** as part of our ongoing commitment to delivering premium, high-converting web experiences. It demonstrates our capability to translate brand identity into functional, pixel-perfect digital products without relying on heavy external libraries.
 
 ---
-*Developed with ❤️ by [Quorex Studio](https://github.com/Quorex-Studio)*
+*Developed by [Quorex Studio](https://github.com/Quorex-Studio)*
