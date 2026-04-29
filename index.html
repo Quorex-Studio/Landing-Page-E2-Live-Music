@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>E2 Live Music — Orquesta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Cinzel:wght@400;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg: #08080f;
+  --surface: #0f0f1a;
+  --blue: #4fc3f7;
+  --purple: #9b6bff;
+  --pink: #e040fb;
+  --green: #00e5a0;
+  --gold: #f0c96e;
+  --text: #f0eee8;
+  --dim: rgba(240, 238, 232, 0.55);
+  --border: rgba(255, 255, 255, 0.07);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+display:flex;justify-content:space-between;align-items:center;
+padding:20px 48px;
+background:linear-gradient(to bottom, #08080f, transparent);
+backdrop-filter:blur(12px);}
+.nav-logo{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--text);text-decoration:none;}
+.nav-logo span{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{font-family:'Cinzel',serif;color:var(--dim);text-decoration:none;font-size:0.8rem;font-weight:600;text-transform:uppercase;transition:color .3s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{border:1px solid var(--blue);padding:10px 24px;color:var(--blue)!important;border-radius:4px;transition:background .3s,color .3s!important;}
+.nav-cta:hover{background:rgba(79,195,247,0.1);color:var(--blue)!important;}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 100px;position:relative;}
+
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
+.orb1{width:450px;height:450px;background:rgba(79,195,247,0.15);top:-100px;left:-150px;}
+.orb2{width:450px;height:450px;background:rgba(155,107,255,0.15);bottom:-80px;right:-100px;}
+
+.hero-ring-wrap{position:relative;width:180px;height:180px;margin-bottom:40px;z-index:2;}
+.hero-ring-wrap svg{position:absolute;inset:0;width:100%;height:100%;}
+.ring-spin{animation:spin 8s linear infinite;transform-origin:center;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.hero-e2{font-family:'Dancing Script',cursive;font-size:5rem;font-weight:700;color:var(--text);
+text-shadow:0 0 20px rgba(79,195,247,0.6),0 0 40px rgba(155,107,255,0.4);
+position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;}
+
+.hero-content{z-index:2;position:relative;}
+h1.hero-title{font-family:'Dancing Script',cursive;font-size:clamp(3.5rem,9vw,7rem);font-weight:700;line-height:1;margin-bottom:10px;}
+.hero-sub{font-family:'Cinzel',serif;font-size:clamp(0.8rem,2vw,1rem);letter-spacing:0.5em;color:var(--dim);text-transform:uppercase;margin-bottom:30px;}
+.hero-p{font-family:'Outfit',sans-serif;font-weight:300;font-size:1.1rem;color:rgba(240,238,232,0.55);max-width:560px;line-height:1.8;margin:0 auto 40px;}
+.btn-primary{display:inline-flex;align-items:center;padding:15px 40px;border:1px solid var(--blue);color:var(--text);text-decoration:none;font-family:'Cinzel',serif;font-size:0.8rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;transition:background .3s;border-radius:4px;}
+.btn-primary:hover{background:rgba(79,195,247,0.1);}
+
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2;}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom, var(--blue), transparent);animation:sl 2s ease-in-out infinite;transform-origin:top;}
+@keyframes sl{0%,100%{transform:scaleY(1);}50%{transform:scaleY(0.5);}}
+.scroll-hint span{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.3em;color:var(--dim);text-transform:uppercase;}
+
+/* ── SHARED ── */
+.container{max-width:1120px;margin:0 auto;padding:0 32px;}
+.section-tag{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:var(--purple);text-transform:uppercase;display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.section-tag::before{content:'';width:36px;height:1px;background:var(--purple);}
+h2.s-title{font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:600;line-height:1.1;margin-bottom:20px;}
+h2.s-title em{font-family:'Dancing Script',cursive;font-style:normal;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.s-desc{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:300;color:var(--dim);line-height:1.7;}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease-out, transform 0.7s ease-out;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ── BANDA ── */
+#banda{padding:120px 0;}
+.banda-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;}
+
+.musicians{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.mu-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 10px;display:flex;flex-direction:column;align-items:center;gap:12px;transition:transform 0.3s, border-color 0.3s;}
+.mu-card:hover{transform:translateY(-4px);border-color:rgba(79,195,247,0.3);}
+.mu-card svg{width:42px;height:42px;}
+.mu-name{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);text-align:center;}
+.mu-count{font-family:'Outfit',sans-serif;font-size:0.8rem;font-weight:500;color:var(--blue);}
+.mu-card.wide{grid-column:span 2;}
+
+.stats{display:flex;border:1px solid var(--border);border-radius:12px;margin-top:60px;overflow:hidden;}
+.stat{flex:1;background:var(--surface);padding:40px 20px;text-align:center;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat-n{font-family:'Cinzel',serif;font-size:3rem;font-weight:600;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:10px;}
+.stat-l{font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--dim);text-transform:uppercase;}
+
+/* ── SHOWS ── */
+#shows{padding:120px 0;}
+.shows-grid{display:flex;flex-direction:column;gap:24px;margin-top:50px;}
+@media(min-width:901px){
+  .shows-grid{flex-direction:row;}
+  .show-card{flex:1;}
+}
+.show-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:36px;display:flex;flex-direction:row;gap:24px;transition:transform 0.3s, border-color 0.3s;}
+.show-card:hover{transform:translateY(-4px);border-color:rgba(79,195,247,0.3);}
+.show-icon{width:56px;height:56px;flex-shrink:0;background:linear-gradient(135deg,rgba(79,195,247,0.1),rgba(155,107,255,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(79,195,247,0.2);}
+.show-icon svg{width:28px;height:28px;color:var(--blue);}
+.show-h{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);margin-bottom:12px;}
+.show-d{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:300;color:var(--dim);line-height:1.6;margin-bottom:20px;}
+.show-tag{display:inline-block;padding:6px 16px;border-radius:100px;background:rgba(79,195,247,0.08);border:1px solid var(--blue);font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.15em;color:var(--blue);text-transform:uppercase;}
+
+/* ── REPERTORIO ── */
+#repertorio{padding:120px 0;}
+.rep-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:50px;}
+.rep-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px 24px;text-align:center;position:relative;overflow:hidden;transition:transform 0.3s, border-color 0.3s;}
+.rep-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--blue),var(--purple));transform:scaleX(0);transform-origin:center;transition:transform 0.4s;}
+.rep-card:hover{transform:translateY(-6px);border-color:rgba(155,107,255,0.3);}
+.rep-card:hover::after{transform:scaleX(1);}
+.rep-ill{width:64px;height:64px;margin:0 auto 24px;display:block;}
+.rep-h{font-family:'Cinzel',serif;font-size:0.9rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text);margin-bottom:12px;}
+.rep-d{font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:300;color:var(--dim);line-height:1.6;}
+
+/* ── RIDER ── */
+#rider{padding:120px 0;}
+.rider-intro{margin-bottom:50px;}
+.rider-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.rider-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px 28px;transition:border-color 0.3s, transform 0.3s;}
+.rider-card:hover{border-color:rgba(155,107,255,0.25);transform:translateY(-4px);}
+.rider-icon{width:48px;height:48px;background:rgba(155,107,255,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.rider-icon svg{width:24px;height:24px;color:var(--purple);}
+.rider-h{font-family:'Cinzel',serif;font-size:0.9rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text);margin-bottom:16px;}
+.rider-ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.rider-ul li{font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:300;color:var(--dim);line-height:1.5;display:flex;align-items:flex-start;gap:12px;}
+.rider-ul li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple);margin-top:8px;flex-shrink:0;}
+.rider-note{margin-top:40px;padding:24px 32px;border-radius:12px;background:rgba(79,195,247,0.05);border:1px solid var(--blue);}
+.rider-note p{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:300;color:var(--dim);line-height:1.6;}
+.rider-note strong{color:var(--blue);font-weight:500;}
+
+/* ── CONTACTO ── */
+#contacto{padding:140px 0;text-align:center;position:relative;}
+.contact-glow{position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(79,195,247,0.05), transparent 60%);pointer-events:none;z-index:0;}
+.contacto-content{position:relative;z-index:1;}
+.cta-title{font-family:'Dancing Script',cursive;font-size:clamp(3rem,8vw,6rem);line-height:1;margin-bottom:16px;color:var(--text);}
+.contact-box{display:inline-flex;flex-direction:column;align-items:center;gap:16px;padding:50px 80px;border:1px solid var(--blue);background:rgba(15,15,26,0.5);border-radius:16px;position:relative;margin-top:40px;}
+.contact-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--blue),transparent);}
+.c-label{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.3em;color:var(--blue);text-transform:uppercase;}
+.c-name{font-family:'Dancing Script',cursive;font-size:2.5rem;font-weight:600;color:var(--text);}
+.c-number{font-family:'Cinzel',serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--text);}
+.btn-wa{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:rgba(37,211,102,0.08);border:1px solid var(--green);color:#25d166;text-decoration:none;font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.05em;border-radius:8px;margin-top:16px;transition:background 0.3s, border-color 0.3s;}
+.btn-wa:hover{background:rgba(37,211,102,0.15);border-color:#25d166;}
+
+.socials{display:flex;gap:16px;margin-top:24px;justify-content:center;}
+.soc-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 28px;border:1px solid var(--dim);border-radius:8px;color:var(--dim);text-decoration:none;font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:400;transition:all 0.3s;}
+.soc-btn:hover{color:var(--text);}
+.soc-btn.ig:hover{border-color:#e1306c;color:#e1306c;}
+.soc-btn.tk:hover{border-color:#00f2fe;color:#00f2fe;} /* Using a cyan color for tiktok hover */
+
+/* ── FOOTER ── */
+footer{padding:40px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg);position:relative;z-index:1;}
+.f-logo{font-family:'Dancing Script',cursive;font-size:1.5rem;color:var(--text);}
+footer p{font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:300;color:var(--dim);}
+footer a{font-family:'Cinzel',serif;color:var(--dim);text-decoration:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;}
+footer a:hover{color:var(--blue);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .nav-links{display:none;}
+  .banda-layout{grid-template-columns:1fr;gap:50px;}
+  .rep-grid{grid-template-columns:repeat(2,1fr);}
+  .rider-grid{grid-template-columns:repeat(2,1fr);}
+  .contact-box{padding:40px 30px;width:100%;}
+  .stats{flex-direction:column;}
+  .stat{border-right:none;border-bottom:1px solid var(--border);}
+  .stat:last-child{border-bottom:none;}
+}
+@media(max-width:560px){
+  nav{padding:15px 24px;}
+  .musicians{grid-template-columns:repeat(2,1fr);}
+  .rep-grid{grid-template-columns:1fr;}
+  .rider-grid{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:20px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo"><span>E2</span> Live Music</a>
+  <div class="nav-links">
+    <a href="#banda">La Orquesta</a>
+    <a href="#shows">Shows</a>
+    <a href="#repertorio">Repertorio</a>
+    <a href="#rider">Rider</a>
+    <a href="#contacto" class="nav-cta">Contratar</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  
+  <div class="hero-content">
+    <div class="hero-ring-wrap" style="margin: 0 auto 40px;">
+      <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="90" cy="90" r="82" stroke="url(#rg1)" stroke-width="3" class="ring-spin"/>
+        <circle cx="90" cy="90" r="82" stroke="url(#rg2)" stroke-width="1" opacity=".4"/>
+        <defs>
+          <linearGradient id="rg1" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4fc3f7"/>
+            <stop offset="50%" stop-color="#9b6bff"/>
+            <stop offset="100%" stop-color="#e040fb"/>
+          </linearGradient>
+          <linearGradient id="rg2" x1="0" y1="0" x2="180" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4fc3f7" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#4fc3f7"/>
+            <stop offset="100%" stop-color="#4fc3f7" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="hero-e2">e2</div>
+    </div>
+
+    <h1 class="hero-title reveal">e2 live music</h1>
+    <div class="hero-sub reveal">Orquesta en vivo · Venezuela</div>
+    <p class="hero-p reveal">Un ensamble profesional con años de trayectoria. Repertorio variado, capaz de complacer a cualquier público y contratante.</p>
+    <a href="#contacto" class="btn-primary reveal">Contratar ahora</a>
+  </div>
+  
+  <div class="scroll-hint reveal">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<section id="banda">
+  <div class="container">
+    <div class="banda-layout">
+      <div>
+        <div class="section-tag reveal">La Orquesta</div>
+        <h2 class="s-title reveal">Música que <em>se siente</em></h2>
+        <p class="s-desc reveal" style="margin-bottom:24px;">
+          E2 Live Music es una orquesta de <strong style="color:var(--text);font-weight:500;">11 músicos en tarima</strong>. Sin pistas, sin playback — cada nota es 100% en vivo, con el ensamble y la presencia de una orquesta profesional.
+        </p>
+        <p class="s-desc reveal">
+          Nuestro equipo tiene amplia antigüedad en el medio artístico venezolano, garantizando siempre calidad, puntualidad y adaptación al contratante.
+        </p>
+      </div>
+
+      <div>
+        <div class="musicians reveal">
+          <!-- Voces femeninas -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="17" cy="16" r="7" stroke="#e040fb" stroke-width="1.8"/>
+              <path d="M6 38c0-6.075 4.925-11 11-11h1" stroke="#e040fb" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="31" cy="16" r="7" stroke="#9b6bff" stroke-width="1.8"/>
+              <path d="M42 38c0-6.075-4.925-11-11-11h-1" stroke="#9b6bff" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M24 28v6M21 34h6" stroke="#4fc3f7" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <div class="mu-name">Voces<br/>Femeninas</div>
+            <div class="mu-count">×2</div>
+          </div>
+          <!-- Voz masculina -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="15" r="8" stroke="#4fc3f7" stroke-width="1.8"/>
+              <path d="M12 40c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="#4fc3f7" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M24 30v4M21 34h6" stroke="#9b6bff" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <div class="mu-name">Voz<br/>Masculina</div>
+            <div class="mu-count">×1</div>
+          </div>
+          <!-- Piano -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="12" width="36" height="24" rx="3" stroke="#4fc3f7" stroke-width="1.8"/>
+              <path d="M6 28h36" stroke="#4fc3f7" stroke-width="1.5"/>
+              <rect x="12" y="12" width="5" height="14" rx="2" fill="#9b6bff" fill-opacity=".6"/>
+              <rect x="20" y="12" width="5" height="14" rx="2" fill="#9b6bff" fill-opacity=".6"/>
+              <rect x="31" y="12" width="5" height="14" rx="2" fill="#9b6bff" fill-opacity=".6"/>
+            </svg>
+            <div class="mu-name">Piano</div>
+            <div class="mu-count">×1</div>
+          </div>
+          <!-- Bajo -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28 8h4l2 4-4 2-4-3z" stroke="#4fc3f7" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M26 11L14 36" stroke="#4fc3f7" stroke-width="1.8" stroke-linecap="round"/>
+              <ellipse cx="13" cy="37" rx="7" ry="5" stroke="#9b6bff" stroke-width="1.8"/>
+              <circle cx="13" cy="37" r="2.5" fill="#9b6bff" fill-opacity=".4"/>
+            </svg>
+            <div class="mu-name">Bajo</div>
+            <div class="mu-count">×1</div>
+          </div>
+          <!-- Guitarra -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30 8h4l2 4-4 3-4-4z" stroke="#00e5a0" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M28 11L20 26" stroke="#00e5a0" stroke-width="1.8" stroke-linecap="round"/>
+              <ellipse cx="17" cy="31" rx="8" ry="6" stroke="#00e5a0" stroke-width="1.8"/>
+              <circle cx="17" cy="31" r="3" fill="#00e5a0" fill-opacity=".25"/>
+              <line x1="17" y1="25" x2="17" y2="37" stroke="#00e5a0" stroke-width="1.2" stroke-opacity=".5"/>
+            </svg>
+            <div class="mu-name">Guitarra</div>
+            <div class="mu-count">×1</div>
+          </div>
+          <!-- Congas -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="14" width="12" height="24" rx="6" stroke="#e040fb" stroke-width="1.8"/>
+              <ellipse cx="14" cy="14" rx="6" ry="3" stroke="#e040fb" stroke-width="1.5"/>
+              <rect x="28" y="18" width="12" height="20" rx="6" stroke="#9b6bff" stroke-width="1.8"/>
+              <ellipse cx="34" cy="18" rx="6" ry="3" stroke="#9b6bff" stroke-width="1.5"/>
+            </svg>
+            <div class="mu-name">Congas</div>
+            <div class="mu-count">×1</div>
+          </div>
+          <!-- Batería -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="24" cy="30" rx="14" ry="7" stroke="#4fc3f7" stroke-width="1.8"/>
+              <ellipse cx="14" cy="22" rx="7" ry="4" stroke="#9b6bff" stroke-width="1.5"/>
+              <ellipse cx="34" cy="22" rx="7" ry="4" stroke="#9b6bff" stroke-width="1.5"/>
+              <ellipse cx="24" cy="30" rx="7" ry="3.5" stroke="#4fc3f7" stroke-width="1.2" stroke-opacity=".5"/>
+              <path d="M10 14l4 8M38 14l-4 8" stroke="#e040fb" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <div class="mu-name">Batería</div>
+            <div class="mu-count">×1</div>
+          </div>
+          <!-- Trompeta -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 24h20" stroke="#f0c96e" stroke-width="2" stroke-linecap="round"/>
+              <path d="M28 24c0-4 4-8 8-8v16c-4 0-8-4-8-8z" stroke="#f0c96e" stroke-width="1.8"/>
+              <circle cx="12" cy="18" r="3" stroke="#f0c96e" stroke-width="1.5"/>
+              <circle cx="19" cy="18" r="3" stroke="#f0c96e" stroke-width="1.5"/>
+              <circle cx="26" cy="18" r="3" stroke="#f0c96e" stroke-width="1.5"/>
+              <path d="M12 21v3M19 21v3M26 21v3" stroke="#f0c96e" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <div class="mu-name">Trompeta</div>
+            <div class="mu-count">×1</div>
+          </div>
+          <!-- Saxo -->
+          <div class="mu-card">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 8c6 0 10 4 10 10 0 4-2 7-5 9l-3 13H16l-2-12c-3-2-5-6-5-10 0-6 5-10 11-10z" stroke="#f0c96e" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M22 8l2-2 3 3-2 2" stroke="#f0c96e" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="16" cy="22" r="1.5" fill="#f0c96e" fill-opacity=".6"/>
+              <circle cx="20" cy="25" r="1.5" fill="#f0c96e" fill-opacity=".6"/>
+              <circle cx="24" cy="22" r="1.5" fill="#f0c96e" fill-opacity=".6"/>
+            </svg>
+            <div class="mu-name">Saxofón</div>
+            <div class="mu-count">×1</div>
+          </div>
+          <!-- Trombón -->
+          <div class="mu-card wide">
+            <svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20h32" stroke="#f0c96e" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 28h32" stroke="#f0c96e" stroke-width="2" stroke-linecap="round"/>
+              <path d="M42 20v8" stroke="#f0c96e" stroke-width="2"/>
+              <path d="M10 20v8" stroke="#f0c96e" stroke-width="2"/>
+              <path d="M48 24c0-6 6-10 10-10v20c-4 0-10-4-10-10z" stroke="#f0c96e" stroke-width="1.8"/>
+              <path d="M26 10l4 10M26 38l4-10" stroke="#f0c96e" stroke-width="1.5" stroke-linecap="round" stroke-opacity=".5"/>
+            </svg>
+            <div class="mu-name">Trombón</div>
+            <div class="mu-count">×1</div>
+          </div>
+        </div>
+        
+        <div class="stats reveal">
+          <div class="stat"><div class="stat-n">11</div><div class="stat-l">Músicos en tarima</div></div>
+          <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Show en vivo</div></div>
+          <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Repertorio variado</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shows">
+  <div class="container">
+    <div class="section-tag reveal">Shows</div>
+    <h2 class="s-title reveal">Formatos <em>disponibles</em></h2>
+    <p class="s-desc reveal">Nos adaptamos a tu evento. Elige el formato que mejor se ajuste al programa de tu velada.</p>
+    
+    <div class="shows-grid reveal">
+      <div class="show-card">
+        <div class="show-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="show-h">Show continuo</div>
+          <div class="show-d">Un bloque ininterrumpido de música en vivo pensado para mantener la energía y el ambiente del evento de principio a fin.</div>
+          <span class="show-tag">1 hora 30 minutos</span>
+        </div>
+      </div>
+      <div class="show-card">
+        <div class="show-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="4" width="7" height="16" rx="2"/>
+            <rect x="14" y="4" width="7" height="16" rx="2"/>
+          </svg>
+        </div>
+        <div>
+          <div class="show-h">Dos sets</div>
+          <div class="show-d">El show dividido en dos bloques con un intermedio. Ideal para eventos con programa alternado o momentos especiales entre sets.</div>
+          <span class="show-tag">2 × 45 minutos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="repertorio">
+  <div class="container">
+    <div class="section-tag reveal">Repertorio</div>
+    <h2 class="s-title reveal">Para <em>todos</em> los gustos</h2>
+    <p class="s-desc reveal">Repertorio totalmente variado. Un show apto para todo tipo de público, desde bodas hasta eventos corporativos.</p>
+    
+    <div class="rep-grid">
+      <!-- Salsa -->
+      <div class="rep-card reveal">
+        <svg class="rep-ill" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Figuras bailando -->
+          <circle cx="24" cy="20" r="4" stroke="#e040fb" stroke-width="2"/>
+          <circle cx="40" cy="16" r="4" stroke="#9b6bff" stroke-width="2"/>
+          <path d="M24 24 c 0 6 -6 12 -6 18 m 6 -18 c 0 6 6 12 6 18" stroke="#e040fb" stroke-width="2" stroke-linecap="round"/>
+          <path d="M40 20 c 0 6 -6 12 -6 18 m 6 -18 c 0 6 6 12 6 18" stroke="#9b6bff" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 32 c 8 -4 16 -4 24 0" stroke="#e040fb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="rep-h">Salsa & Tropical</div>
+        <div class="rep-d">Ritmos caribeños con toda la potencia de los vientos</div>
+      </div>
+      <!-- Pop -->
+      <div class="rep-card reveal">
+        <svg class="rep-ill" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Estrella -->
+          <path d="M32 8 l 6 16 h 18 l -14 10 l 6 18 l -16 -12 l -16 12 l 6 -18 l -14 -10 h 18 z" stroke="#4fc3f7" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <div class="rep-h">Pop & Baladas</div>
+        <div class="rep-d">Éxitos populares para todas las generaciones</div>
+      </div>
+      <!-- Rock -->
+      <div class="rep-card reveal">
+        <svg class="rep-ill" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Onda / Rayo -->
+          <path d="M36 12 L16 36 h 16 L28 56 L48 32 H32 L36 12 Z" stroke="#00e5a0" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <div class="rep-h">Rock & Fusión</div>
+        <div class="rep-d">Clásicos del rock con arreglos orquestales únicos</div>
+      </div>
+      <!-- Bailable -->
+      <div class="rep-card reveal">
+        <svg class="rep-ill" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Personas -->
+          <circle cx="16" cy="24" r="4" stroke="#f0c96e" stroke-width="2"/>
+          <path d="M16 28 v 12 m -6 8 l 6 -8 l 6 8" stroke="#f0c96e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="32" cy="20" r="4" stroke="#e040fb" stroke-width="2"/>
+          <path d="M32 24 v 12 m -6 8 l 6 -8 l 6 8" stroke="#e040fb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="48" cy="24" r="4" stroke="#4fc3f7" stroke-width="2"/>
+          <path d="M48 28 v 12 m -6 8 l 6 -8 l 6 8" stroke="#4fc3f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="rep-h">Música Bailable</div>
+        <div class="rep-d">Merengue, cumbia y todo lo que mueve a cualquier pista</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rider">
+  <div class="container">
+    <div class="section-tag reveal">Rider Técnico</div>
+    <h2 class="s-title reveal">Lo que <em>necesitamos</em></h2>
+    <div class="rider-intro reveal">
+      <p class="s-desc">Estos son los requerimientos técnicos para garantizar un show de calidad profesional. El contratante debe proveer o coordinar estos elementos con anticipación.</p>
+    </div>
+    
+    <div class="rider-grid">
+      <!-- Sonido -->
+      <div class="rider-card reveal">
+        <div class="rider-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
+          </svg>
+        </div>
+        <div class="rider-h">Sonido PA</div>
+        <ul class="rider-ul">
+          <li>Sistema de PA profesional acorde al aforo del evento</li>
+          <li>Consola de mezclas mínimo 24 canales con procesador de efectos</li>
+          <li>Monitores de piso (mínimo 6 envíos independientes)</li>
+          <li>Subwoofers para refuerzo de bajos frecuencias</li>
+          <li>Técnico de sonido en vivo durante el show</li>
+        </ul>
+      </div>
+      <!-- Micrófonos -->
+      <div class="rider-card reveal">
+        <div class="rider-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2a3 3 0 013 3v7a3 3 0 01-6 0V5a3 3 0 013-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v3M8 22h8"/>
+          </svg>
+        </div>
+        <div class="rider-h">Micrófonos</div>
+        <ul class="rider-ul">
+          <li>3 micrófonos vocales dinámicos (voces principales)</li>
+          <li>2 micrófonos de condensador para vientos y percusión menor</li>
+          <li>Micrófono para bombo, snare y toms (batería)</li>
+          <li>DI Box para bajo y teclado</li>
+          <li>Todos los cables XLR y soportes de micrófono incluidos</li>
+        </ul>
+      </div>
+      <!-- Backline -->
+      <div class="rider-card reveal">
+        <div class="rider-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+            <circle cx="12" cy="14" r="3"/>
+          </svg>
+        </div>
+        <div class="rider-h">Backline</div>
+        <ul class="rider-ul">
+          <li>Amplificador de bajo (mínimo 300W)</li>
+          <li>Amplificador de guitarra eléctrica</li>
+          <li>Batería acústica completa (si la orquesta no lleva la propia)</li>
+          <li>Soporte de teclado estable (doble nivel preferiblemente)</li>
+          <li>Regleta de corriente eléctrica para cada músico</li>
+        </ul>
+      </div>
+      <!-- Tarima -->
+      <div class="rider-card reveal">
+        <div class="rider-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="14" width="20" height="6" rx="1"/>
+            <path d="M6 14V8M18 14V8M10 14V10M14 14V10"/>
+          </svg>
+        </div>
+        <div class="rider-h">Tarima & Espacio</div>
+        <ul class="rider-ul">
+          <li>Tarima mínima de 8m × 6m para acomodar los 11 músicos</li>
+          <li>Altura mínima de 0.6m del piso</li>
+          <li>Iluminación básica de escenario (PAR LED recomendado)</li>
+          <li>Acceso al escenario al menos 2 horas antes del show</li>
+          <li>Espacio de camerino o área de descanso para los músicos</li>
+        </ul>
+      </div>
+      <!-- Logística -->
+      <div class="rider-card reveal">
+        <div class="rider-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <div class="rider-h">Logística</div>
+        <ul class="rider-ul">
+          <li>Estacionamiento o acceso vehicular para descarga de equipos</li>
+          <li>Hidratación para los 11 músicos durante el evento</li>
+          <li>Acceso a toma eléctrica de 110V (mínimo 20A disponibles)</li>
+          <li>Coordinación previa con el productor del evento</li>
+        </ul>
+      </div>
+      <!-- Coordinación -->
+      <div class="rider-card reveal">
+        <div class="rider-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <div class="rider-h">Coordinación</div>
+        <ul class="rider-ul">
+          <li>Reunión o llamada de coordinación previa al evento</li>
+          <li>Confirmación de set list y orden de canciones</li>
+          <li>Contacto directo con el productor o maestro de ceremonias</li>
+          <li>Señalización de horario de inicio y fin del show</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="rider-note reveal">
+      <p>⚠️ <strong>Nota importante:</strong> El rider técnico es una guía de requerimientos mínimos. Cualquier modificación o adaptación debe coordinarse con <strong>Eduardo Caraballo</strong> antes de confirmar la contratación. E2 Live Music se reserva el derecho de ajustar el show según las condiciones técnicas del lugar.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="contact-glow"></div>
+  <div class="container contacto-content">
+    <div class="section-tag reveal" style="justify-content:center;">Contrataciones</div>
+    <h2 class="cta-title reveal">¿Listos para el show?</h2>
+    <p class="cta-sub reveal">Contacta para disponibilidad y cotización</p>
+    
+    <div class="reveal">
+      <div class="contact-box">
+        <div class="c-label">Director & Contacto</div>
+        <div class="c-name">Eduardo Caraballo</div>
+        <div class="c-number">0412 094 3085</div>
+        <a href="https://wa.me/584120943085?text=Hola%20Eduardo%2C%20me%20interesa%20contratar%20a%20E2%20Live%20Music%20para%20un%20evento." target="_blank" rel="noopener noreferrer" class="btn-wa">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir por WhatsApp
+        </a>
+        
+        <div class="socials">
+          <a href="https://www.instagram.com/e2livemusic?igsh=Y2MwYTZiZXkwaGw=" target="_blank" rel="noopener noreferrer" class="soc-btn ig">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            Instagram
+          </a>
+          <a href="https://www.tiktok.com/@e2livemusic1" target="_blank" rel="noopener noreferrer" class="soc-btn tk">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.2 8.2 0 004.84 1.56V6.79a4.85 4.85 0 01-1.07-.1z"/></svg>
+            TikTok
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="f-logo" style="text-decoration:none;">E2 Live Music</a>
+  <p>© 2025 E2 Live Music · Orquesta · Venezuela</p>
+  <a href="https://quorex.vercel.app" target="_blank" rel="noopener noreferrer">Quorex Studio</a>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('in');
+        }, index * 100); // Staggering effect
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  reveals.forEach(reveal => observer.observe(reveal));
+});
+</script>
+
+</body>
+</html>
