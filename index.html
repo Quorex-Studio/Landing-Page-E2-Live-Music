@@ -182,23 +182,37 @@ footer p{font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:300;color:
 footer a:not(.f-logo){font-family:'Cinzel',serif;color:var(--dim);text-decoration:none;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;}
 footer a:not(.f-logo):hover{color:var(--blue);}
 
+/* ── MOBILE MENU ── */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;background:none;border:none;cursor:pointer;padding:4px;z-index:200;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:transform 0.3s, opacity 0.3s;transform-origin:center;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .nav-links{display:none;}
+  .nav-links{display:none;flex-direction:column;align-items:center;gap:0;position:fixed;top:0;left:0;right:0;background:rgba(8,8,15,0.97);backdrop-filter:blur(20px);padding:90px 24px 40px;z-index:150;border-bottom:1px solid var(--border);}
+  .nav-links.open{display:flex;animation:slideDown 0.3s ease-out;}
+  @keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+  .nav-links a{font-size:1rem;padding:18px 0;width:100%;text-align:center;border-bottom:1px solid rgba(255,255,255,0.05);}
+  .nav-links a:last-child{border-bottom:none;margin-top:10px;}
+  .nav-links .nav-cta{border:1px solid var(--blue);width:80%;border-radius:8px;padding:14px 0;}
+  .hamburger{display:flex;}
   .banda-layout{grid-template-columns:1fr;gap:50px;}
   .rep-grid{grid-template-columns:repeat(2,1fr);}
   .rider-grid{grid-template-columns:repeat(2,1fr);}
-  .contact-box{padding:40px 30px;width:100%;}
+  .contact-box{padding:40px 24px;width:100%;max-width:100%;}
   .stats{flex-direction:column;}
   .stat{border-right:none;border-bottom:1px solid var(--border);}
   .stat:last-child{border-bottom:none;}
 }
 @media(max-width:560px){
-  nav{padding:15px 24px;}
+  nav{padding:14px 20px;}
+  .nav-logo img{height:36px;width:36px;}
   .musicians{grid-template-columns:repeat(2,1fr);}
   .rep-grid{grid-template-columns:1fr;}
   .rider-grid{grid-template-columns:1fr;}
-  footer{flex-direction:column;gap:20px;text-align:center;}
+  footer{flex-direction:column;gap:16px;text-align:center;padding:32px 20px;}
 }
 </style>
 </head>
@@ -209,7 +223,10 @@ footer a:not(.f-logo):hover{color:var(--blue);}
     <img src="assets/img/logo2.jpg" alt="Logo E2 Live Music"/>
     <span class="nav-logo-text"><span>E2</span> Live Music</span>
   </a>
-  <div class="nav-links">
+  <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="#banda">La Orquesta</a>
     <a href="#shows">Shows</a>
     <a href="#repertorio">Repertorio</a>
@@ -251,8 +268,8 @@ footer a:not(.f-logo):hover{color:var(--blue);}
     <p class="hero-p reveal">Un ensamble profesional con años de trayectoria. Repertorio variado, capaz de complacer a cualquier público y contratante.</p>
     <a href="#contacto" class="btn-primary reveal">Contratar ahora</a>
   </div>
-  
-  <div class="scroll-hint reveal">
+
+  <div class="scroll-hint">
     <div class="scroll-line"></div>
     <span>Scroll</span>
   </div>
@@ -650,12 +667,13 @@ footer a:not(.f-logo):hover{color:var(--blue);}
 
 <footer>
   <a href="#" class="f-logo">E2 Live Music</a>
-  <p>© 2025 E2 Live Music · Orquesta · Venezuela</p>
+  <p>© 2026 E2 Live Music · Orquesta · Venezuela</p>
   <a href="https://quorex.vercel.app" target="_blank" rel="noopener noreferrer">Quorex Studio</a>
 </footer>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+  // ── Reveal on scroll ──
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -666,6 +684,27 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(reveal => observer.observe(reveal));
+
+  // ── Mobile hamburger menu ──
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('nav-links');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close when a link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
 });
 </script>
 
