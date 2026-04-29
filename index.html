@@ -37,7 +37,7 @@
   --dim: rgba(240, 238, 232, 0.55);
   --border: rgba(255, 255, 255, 0.07);
 }
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;}
 
 /* ── NAV ── */
@@ -183,20 +183,24 @@ footer a:not(.f-logo){font-family:'Cinzel',serif;color:var(--dim);text-decoratio
 footer a:not(.f-logo):hover{color:var(--blue);}
 
 /* ── MOBILE MENU ── */
-.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;background:none;border:none;cursor:pointer;padding:4px;z-index:200;}
-.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:transform 0.3s, opacity 0.3s;transform-origin:center;}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;background:none;border:none;cursor:pointer;padding:4px;z-index:300;flex-shrink:0;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:transform 0.35s,opacity 0.35s;transform-origin:center;}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .hamburger.open span:nth-child(2){opacity:0;}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;backdrop-filter:blur(2px);}
+.nav-overlay.open{display:block;}
+.nav-drawer{position:fixed;top:0;right:0;height:100%;width:72%;max-width:280px;background:#0c0c1c;border-left:1px solid rgba(155,107,255,0.25);z-index:250;visibility:hidden;pointer-events:none;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),visibility 0.35s;display:flex;flex-direction:column;padding:88px 28px 40px;gap:0;overflow-y:auto;}
+.nav-drawer.open{transform:translateX(0);visibility:visible;pointer-events:auto;}
+.nav-drawer a{font-family:'Cinzel',serif;color:var(--dim);text-decoration:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:color 0.2s;}
+.nav-drawer a:hover{color:var(--text);}
+.nav-drawer .nav-cta{border:1px solid var(--blue);border-radius:6px;text-align:center;padding:14px 0;margin-top:20px;color:var(--blue)!important;border-bottom:none;}
+.nav-drawer .nav-cta:hover{background:rgba(79,195,247,0.1);}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .nav-links{display:none;flex-direction:column;align-items:center;gap:0;position:fixed;top:0;left:0;right:0;background:rgba(8,8,15,0.97);backdrop-filter:blur(20px);padding:90px 24px 40px;z-index:150;border-bottom:1px solid var(--border);}
-  .nav-links.open{display:flex;animation:slideDown 0.3s ease-out;}
-  @keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
-  .nav-links a{font-size:1rem;padding:18px 0;width:100%;text-align:center;border-bottom:1px solid rgba(255,255,255,0.05);}
-  .nav-links a:last-child{border-bottom:none;margin-top:10px;}
-  .nav-links .nav-cta{border:1px solid var(--blue);width:80%;border-radius:8px;padding:14px 0;}
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
   .hamburger{display:flex;}
   .banda-layout{grid-template-columns:1fr;gap:50px;}
   .rep-grid{grid-template-columns:repeat(2,1fr);}
@@ -205,14 +209,19 @@ footer a:not(.f-logo):hover{color:var(--blue);}
   .stats{flex-direction:column;}
   .stat{border-right:none;border-bottom:1px solid var(--border);}
   .stat:last-child{border-bottom:none;}
+  .scroll-hint{display:none;}
 }
 @media(max-width:560px){
-  nav{padding:14px 20px;}
   .nav-logo img{height:36px;width:36px;}
+  .nav-logo-text{font-size:1.35rem;}
+  .container{padding:0 20px;}
   .musicians{grid-template-columns:repeat(2,1fr);}
   .rep-grid{grid-template-columns:1fr;}
   .rider-grid{grid-template-columns:1fr;}
   footer{flex-direction:column;gap:16px;text-align:center;padding:32px 20px;}
+  .hero-ring-wrap{width:140px;height:140px;}
+  .hero-e2{font-size:3.8rem;}
+  .btn-primary{padding:14px 24px;font-size:0.72rem;width:90%;justify-content:center;}
 }
 </style>
 </head>
@@ -223,10 +232,11 @@ footer a:not(.f-logo):hover{color:var(--blue);}
     <img src="assets/img/logo2.jpg" alt="Logo E2 Live Music"/>
     <span class="nav-logo-text"><span>E2</span> Live Music</span>
   </a>
-  <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false">
+  <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-  <div class="nav-links" id="nav-links">
+  <!-- Desktop links -->
+  <div class="nav-links">
     <a href="#banda">La Orquesta</a>
     <a href="#shows">Shows</a>
     <a href="#repertorio">Repertorio</a>
@@ -234,6 +244,15 @@ footer a:not(.f-logo):hover{color:var(--blue);}
     <a href="#contacto" class="nav-cta">Contratar</a>
   </div>
 </nav>
+<!-- Mobile overlay + drawer -->
+<div class="nav-overlay" id="nav-overlay"></div>
+<div class="nav-drawer" id="nav-drawer" role="navigation" aria-label="Menu movil">
+  <a href="#banda">La Orquesta</a>
+  <a href="#shows">Shows</a>
+  <a href="#repertorio">Repertorio</a>
+  <a href="#rider">Rider</a>
+  <a href="#contacto" class="nav-cta">Contratar ahora</a>
+</div>
 
 <section id="hero">
   <div class="hero-orb orb1"></div>
@@ -673,38 +692,43 @@ footer a:not(.f-logo):hover{color:var(--blue);}
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // ── Reveal on scroll ──
-  const reveals = document.querySelectorAll('.reveal');
+  // Reveal on scroll
+  const reveals = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('in');
+        entry.target.classList.add("in");
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(reveal => observer.observe(reveal));
+  }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+  reveals.forEach(r => observer.observe(r));
 
-  // ── Mobile hamburger menu ──
-  const hamburger = document.getElementById('hamburger');
-  const navLinks  = document.getElementById('nav-links');
+  // Mobile drawer
+  const hamburger = document.getElementById("hamburger");
+  const drawer    = document.getElementById("nav-drawer");
+  const overlay   = document.getElementById("nav-overlay");
 
-  hamburger.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+  function openDrawer() {
+    drawer.classList.add("open");
+    overlay.classList.add("open");
+    hamburger.classList.add("open");
+    hamburger.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+  function closeDrawer() {
+    drawer.classList.remove("open");
+    overlay.classList.remove("open");
+    hamburger.classList.remove("open");
+    hamburger.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  hamburger.addEventListener("click", () => {
+    if (drawer.classList.contains("open")) closeDrawer(); else openDrawer();
   });
-
-  // Close when a link is clicked
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
-  });
+  overlay.addEventListener("click", closeDrawer);
+  drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeDrawer));
 });
 </script>
 
